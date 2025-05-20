@@ -11,18 +11,12 @@ function App() {
   return (
     <>
       <NavBar></NavBar>
-      <TripPanel/>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TripPanel
+        name="Viaje a Berlín"
+        destination="Alemania"
+        startDate="2025-06-10"
+        endDate="2025-06-15"
+      />      
     </>
   )
 }
