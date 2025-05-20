@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import NavBar from './components/NavBar.jsx'
+import TripPanel from './components/TripPanel.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,7 +11,7 @@ function App() {
   return (
     <>
       <NavBar></NavBar>
-      <h1>Vite + React</h1>
+      <TripPanel/>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
