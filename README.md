@@ -1,1 +1,2 @@
-# glowing-octo-chainsaw
+# travel-planner
+This is a page dedicated to plan all your trips with friends and family. An interactive web page where you have access to intineraries, activities and what to see in the city you travel.
