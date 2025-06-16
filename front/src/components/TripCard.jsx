@@ -1,4 +1,4 @@
-function TripPanel({destination, startDate, endDate,}) {
+function TripCard({destination, startDate, endDate,}) {
     return (
     <div className="card" style={{width: "18rem"}}>
         <img src="https://picsum.photos/150/100" className="card-img-top" alt="..." />
@@ -10,4 +10,4 @@ function TripPanel({destination, startDate, endDate,}) {
          </div>
     );
 }
-export default TripPanel;
+export default TripCard;

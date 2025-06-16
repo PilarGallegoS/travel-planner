@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import NavBar from './components/NavBar.jsx'
-import TripPanel from './components/TripPanel.jsx'
+import { Dashboard } from './pages/Dashboard.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,12 +11,7 @@ function App() {
   return (
     <>
       <NavBar></NavBar>
-      <TripPanel
-        name="Viaje a Berlín"
-        destination="Alemania"
-        startDate="2025-06-10"
-        endDate="2025-06-15"
-      />      
+      <Dashboard/>      
     </>
   )
 }
