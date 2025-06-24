@@ -33,14 +33,14 @@ trips = [
 def get_trips():
     return jsonify(trips), 200
 
-@app.route('/api/trips', method=['POST'])
+@app.route('/api/trips', methods=['POST'])
 def add_trip():
     new_trip = request.json
     new_trip["id"] = len(trips) + 1
     trips.append(new_trip)
     return jsonify(new_trip), 201
 
-@app.route('/api/trips/<int:trip_id>', method=['DELETE'])
+@app.route('/api/trips/<int:trip_id>', methods=['DELETE'])
 def delete_trip(trip_id):
     global trips
     trips = [t for t in trips if t["id"] != trip_id]
