@@ -42,7 +42,7 @@ export default function NewTripForm({ onNewTrip }) {
             });
     };
     return (
-        <form onSubmit={hendleSubmit}>
+        <form onSubmit={handleSubmit}>
             <h3>Add new trip</h3>
             <input name="name" placeholder="Nombre del viaje" value={form.name} onChange={handleChange} required />
             <input name="destination" placeholder="Destino" value={form.destination} onChange={handleChange} required />
