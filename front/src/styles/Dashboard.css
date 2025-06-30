@@ -1,0 +1,13 @@
+.dashboard-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.trip-list {
+  flex: 1;
+}
+
+.form-panel {
+  flex: 1;
+}
