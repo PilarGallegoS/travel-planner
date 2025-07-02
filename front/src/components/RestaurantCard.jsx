@@ -1,4 +1,4 @@
-export const RestaurantCard = ({name, location}) => {
+export default function RestaurantCard({name, location}) {
     return (
         <div className ="restaurant-card">
             <h4>{name}</h4>

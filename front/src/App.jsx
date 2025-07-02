@@ -1,19 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { useState } from 'react'
 import NavBar from './components/NavBar.jsx'
+import TripDetails from './pages/TripDetails.jsx'
 import { Dashboard } from './pages/Dashboard.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <NavBar></NavBar>
-      <Dashboard/>      
-    </>
-  )
+    <Router>
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/trip/:id" element={<TripDetails />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App

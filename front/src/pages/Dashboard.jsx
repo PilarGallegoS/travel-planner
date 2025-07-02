@@ -10,7 +10,7 @@ export const Dashboard = () => {
   const [loadingId, setLoadingId] = useState(null); // Para saber qué viaje está borrando
 
   useEffect(() => {
-    fetch("https://active-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips")
+    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips")
       .then((res) => res.json())
       .then((data) => setTrips(data))
       .catch((error) => console.error("Error al cargar los viajes:", error));
@@ -23,7 +23,7 @@ export const Dashboard = () => {
   const handleDelete = (id) => {
     setLoadingId(id); // Marcar el viaje como "en proceso de borrado"
 
-    fetch(`https://active-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips/${id}`, {
+    fetch(`https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips/${id}`, {
       method: "DELETE"
     })
       .then(() => {

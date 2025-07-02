@@ -2,7 +2,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app, supports_credentials=True)
+
 
 # Datos simulados (en memoria)
 trips = [
@@ -46,6 +47,5 @@ def delete_trip(trip_id):
     trips = [t for t in trips if t["id"] != trip_id]
     return "", 204
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
