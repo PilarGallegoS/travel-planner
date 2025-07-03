@@ -19,8 +19,8 @@ export default function NewTripForm({ onNewTrip }) {
         e.preventDefault(); // Evita que se recargue la página
 
         // Hace la petición POST al backend
-        fetch("https://active-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips", {
-            method: "POST", // ✅ corregido
+        fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips", {
+            method: "POST", 
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 ...form,               // Copiamos lo que el usuario ha escrito

@@ -57,7 +57,7 @@ export default function TripDetails() {
             </section>
             <section>
                 <h3>Transport</h3>
-                {firstTrip.transport.map((route, i)=>(
+                {firstTrip.transports.map((route, i)=>(
                     <TransportCard 
                     key={i}
                     from={route.from}
