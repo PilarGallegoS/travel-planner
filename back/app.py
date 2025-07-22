@@ -38,6 +38,10 @@ def get_trips():
 def add_trip():
     new_trip = request.json
     new_trip["id"] = len(trips) + 1
+    new_trip.setdefault("places", [])
+    new_trip.setdefault("restaurants", [])
+    new_trip.setdefault("transport", [])
+    new_trip.setdefault("notes", [])
     trips.append(new_trip)
     return jsonify(new_trip), 201
 

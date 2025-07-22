@@ -7,6 +7,10 @@ export default function NewTripForm({ onNewTrip }) {
         destination: "",
         startDate: "",
         endDate: "",
+        places: [],
+        restaurants: [],
+        transport: [],
+        notes: []
     });
 
     // Actualiza el estado cada vez que se escribe en un input
@@ -20,7 +24,7 @@ export default function NewTripForm({ onNewTrip }) {
 
         // Hace la petición POST al backend
         fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips", {
-            method: "POST", 
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 ...form,               // Copiamos lo que el usuario ha escrito
