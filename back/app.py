@@ -51,5 +51,14 @@ def delete_trip(trip_id):
     trips = [t for t in trips if t["id"] != trip_id]
     return "", 204
 
+@app.route('/api/trips/<int:trip_id>', methods=['PATCH'])
+def update_trip(trip_id):
+    updated_data = request.json
+    for trip in trips:
+        if trip["id"] == trip_id:
+            trip.update(updated_data)
+            return jsonify(trip), 200
+    return jsonify({"error": "Viaje no encontrado"}), 404
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
