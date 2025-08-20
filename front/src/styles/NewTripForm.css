@@ -1,0 +1,28 @@
+.new-trip-form {
+  background-color: #fff6f2; /* pastel suave */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 400px;
+  margin: 20px auto;
+  color: #333;
+  border: 1px solid #f2cfcf;
+}
+
+.new-trip-form h4 {
+  text-align: center;
+  color: #e08e8e;
+  font-weight: bold;
+}
+
+.btn-success {
+  background-color: #a0d6b4 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background-color: #ffb3b3 !important;
+  color: white !important;
+  border: none !important;
+}

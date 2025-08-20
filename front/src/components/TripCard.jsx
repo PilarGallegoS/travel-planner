@@ -18,8 +18,10 @@ function TripCard({ id, destination, startDate, endDate, onDelete }) {
       <div className="card-body">
         <h3 className="card-title">{destination}</h3>
         <p className="card-date">{startDate} - {endDate}</p>
-        <Link to={`/trip/${id}`} className="btn btn-primary">Go to {destination}!</Link>
-        <button className="btn btn-danger mt-2" onClick={handleDelete}>🗑️ Eliminar</button>
+        <div className="d-flex gap-2 mt-3">
+          <Link to={`/trip/${id}`} className="btn btn-primary w-100 text-nowrap">Go to {destination}!</Link>
+          <button className="btn btn-danger w-100 text-nowrap" onClick={handleDelete}>🗑️ Eliminar</button>
+        </div>
       </div>
     </div>
   );
