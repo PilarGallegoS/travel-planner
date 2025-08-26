@@ -1,13 +1,12 @@
+// Register.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
-  const { login } = useUser();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,18 +15,20 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5173.app.github.dev/api/login", {
+    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5173.app.github.dev/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Login incorrecto");
+        if (!res.ok) throw new Error("Error al registrar usuario");
         return res.json();
       })
       .then((data) => {
-        login({ token: data.token, user: data.user }); // Guardamos el token en contexto + localStorage
-        navigate("/"); // Redirige al dashboard
+        setSuccess("Usuario registrado correctamente");
+        setTimeout(() => {
+          navigate("/login"); // Redirige al login tras registrarse
+        }, 1500);
       })
       .catch((err) => {
         setError(err.message);
@@ -35,9 +36,10 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <h2>Iniciar sesión</h2>
+    <form onSubmit={handleSubmit} className="register-form">
+      <h2>Registrarse</h2>
       {error && <p className="text-danger">{error}</p>}
+      {success && <p className="text-success">{success}</p>}
       <input
         name="email"
         type="email"
@@ -54,12 +56,8 @@ export default function Login() {
         onChange={handleChange}
         required
       />
-      <button type="submit">Entrar</button>
-      <p>
-        ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
-      </p>
-
+      <button type="submit">Crear cuenta</button>
+      <p>¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link></p>
     </form>
-    
   );
 }

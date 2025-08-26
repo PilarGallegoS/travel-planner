@@ -6,6 +6,7 @@ import NavBar from './components/NavBar.jsx'
 import TripDetails from './pages/TripDetails.jsx'
 import { Dashboard } from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/trip/:id" element={<TripDetails />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
