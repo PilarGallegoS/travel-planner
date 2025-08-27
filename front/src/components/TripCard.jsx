@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 function TripCard({ id, destination, startDate, endDate, onDelete }) {
+  const { user } = useUser ();
   const handleDelete = () => {
     fetch(`https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips/${id}`, {
       method: 'DELETE',
@@ -20,7 +22,9 @@ function TripCard({ id, destination, startDate, endDate, onDelete }) {
         <p className="card-date">{startDate} - {endDate}</p>
         <div className="d-flex gap-2 mt-3">
           <Link to={`/trip/${id}`} className="btn btn-primary w-100 text-nowrap">Go to {destination}!</Link>
-          <button className="btn btn-danger w-100 text-nowrap" onClick={handleDelete}>🗑️ Eliminar</button>
+          {user && (
+            <button className="btn btn-danger w-100 text-nowrap" onClick={handleDelete}>🗑️ Eliminar</button>
+          )}
         </div>
       </div>
     </div>

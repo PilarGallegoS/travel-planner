@@ -16,7 +16,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5173.app.github.dev/api/login", {
+    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),

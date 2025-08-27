@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useUser } from '../context/UserContext.jsx';
 
 import TuristicPlaceCard from '../components/TuristicPlaceCard.jsx';
 import RestaurantCard from '../components/RestaurantCard.jsx';
@@ -8,6 +9,7 @@ import BackButton from '../components/BackButton.jsx';
 
 export default function TripDetails() {
   const { id } = useParams();
+  const { user } = useUser();
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -89,13 +91,14 @@ export default function TripDetails() {
     setEditIndex(null);
     setEditItem({});
   };
+
   if (loading) return <p>Cargando...</p>;
   if (!trip) return <p>Viaje no encontrado</p>;
 
   return (
     <div className="container my-4">
       <h2 className="mb-3">{trip.name}</h2>
-      <p><strong>De:</strong> {trip.startDate} <strong> a </strong> {trip.endDate}</p>
+      <p><strong>De:</strong> {trip.startDate} <strong>a</strong> {trip.endDate}</p>
 
       {/* TURISTIC PLACES */}
       <section className="mb-4">
@@ -103,10 +106,14 @@ export default function TripDetails() {
         {trip.places?.map((place, i) => (
           <div key={place.id} className="mb-2">
             <TuristicPlaceCard name={place.name} location={place.location} />
-            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('places', i, place)}>✏️ Editar</button>
-            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('places', i)}>🗑️ Eliminar</button>
+            {user && (
+              <>
+                <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('places', i, place)}>✏️ Editar</button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('places', i)}>🗑️ Eliminar</button>
+              </>
+            )}
 
-            {editingField === 'places' && editIndex === i && (
+            {user && editingField === 'places' && editIndex === i && (
               <div className="collapse show mt-2">
                 <input
                   className="form-control mb-2"
@@ -126,12 +133,13 @@ export default function TripDetails() {
             )}
           </div>
         ))}
-
-        <div className="mt-3">
-          <input className="form-control mb-2" placeholder="Nombre del lugar" value={newPlace.name} onChange={e => setNewPlace({ ...newPlace, name: e.target.value })} />
-          <input className="form-control mb-2" placeholder="Ubicación" value={newPlace.location} onChange={e => setNewPlace({ ...newPlace, location: e.target.value })} />
-          <button className="btn btn-primary" onClick={() => handleAdd("places", newPlace, setNewPlace)}>+ Añadir lugar</button>
-        </div>
+        {user && (
+          <div className="mt-3">
+            <input className="form-control mb-2" placeholder="Nombre del lugar" value={newPlace.name} onChange={e => setNewPlace({ ...newPlace, name: e.target.value })} />
+            <input className="form-control mb-2" placeholder="Ubicación" value={newPlace.location} onChange={e => setNewPlace({ ...newPlace, location: e.target.value })} />
+            <button className="btn btn-primary" onClick={() => handleAdd("places", newPlace, setNewPlace)}>+ Añadir lugar</button>
+          </div>
+        )}
       </section>
 
       {/* RESTAURANTS */}
@@ -140,10 +148,14 @@ export default function TripDetails() {
         {trip.restaurants?.map((r, i) => (
           <div key={r.id} className="mb-2">
             <RestaurantCard name={r.name} location={r.location} />
-            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('restaurants', i, r)}>✏️ Editar</button>
-            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('restaurants', i)}>🗑️ Eliminar</button>
+            {user && (
+              <>
+                <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('restaurants', i, r)}>✏️ Editar</button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('restaurants', i)}>🗑️ Eliminar</button>
+              </>
+            )}
 
-            {editingField === 'restaurants' && editIndex === i && (
+            {user && editingField === 'restaurants' && editIndex === i && (
               <div className="collapse show mt-2">
                 <input className="form-control mb-2" value={editItem.name} onChange={e => setEditItem({ ...editItem, name: e.target.value })} placeholder="Nombre" />
                 <input className="form-control mb-2" value={editItem.location} onChange={e => setEditItem({ ...editItem, location: e.target.value })} placeholder="Ubicación" />
@@ -153,22 +165,29 @@ export default function TripDetails() {
             )}
           </div>
         ))}
-        <div className="mt-3">
-          <input className="form-control mb-2" placeholder="Nombre del restaurante" value={newRestaurant.name} onChange={e => setNewRestaurant({ ...newRestaurant, name: e.target.value })} />
-          <input className="form-control mb-2" placeholder="Ubicación" value={newRestaurant.location} onChange={e => setNewRestaurant({ ...newRestaurant, location: e.target.value })} />
-          <button className="btn btn-primary" onClick={() => handleAdd("restaurants", newRestaurant, setNewRestaurant)}>+ Añadir restaurante</button>
-        </div>
+        {user && (
+          <div className="mt-3">
+            <input className="form-control mb-2" placeholder="Nombre del restaurante" value={newRestaurant.name} onChange={e => setNewRestaurant({ ...newRestaurant, name: e.target.value })} />
+            <input className="form-control mb-2" placeholder="Ubicación" value={newRestaurant.location} onChange={e => setNewRestaurant({ ...newRestaurant, location: e.target.value })} />
+            <button className="btn btn-primary" onClick={() => handleAdd("restaurants", newRestaurant, setNewRestaurant)}>+ Añadir restaurante</button>
+          </div>
+        )}
       </section>
+
       {/* TRANSPORT */}
       <section className="mb-4">
         <h4>Transporte</h4>
-        {trip.transports?.map((t, i) => (
+        {trip.transport?.map((t, i) => (
           <div key={i} className="mb-2">
             <TransportCard from={t.from} to={t.to} transport={t.transport} duration={t.duration} />
-            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('transports', i, t)}>✏️ Editar</button>
-            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('transports', i)}>🗑️ Eliminar</button>
+            {user && (
+              <>
+                <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('transport', i, t)}>✏️ Editar</button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('transport', i)}>🗑️ Eliminar</button>
+              </>
+            )}
 
-            {editingField === 'transports' && editIndex === i && (
+            {user && editingField === 'transport' && editIndex === i && (
               <div className="collapse show mt-2">
                 <input className="form-control mb-2" value={editItem.from} onChange={e => setEditItem({ ...editItem, from: e.target.value })} placeholder="Desde" />
                 <input className="form-control mb-2" value={editItem.to} onChange={e => setEditItem({ ...editItem, to: e.target.value })} placeholder="Hacia" />
@@ -180,13 +199,15 @@ export default function TripDetails() {
             )}
           </div>
         ))}
-        <div className="mt-3">
-          <input className="form-control mb-2" placeholder="Desde" value={newTransport.from} onChange={e => setNewTransport({ ...newTransport, from: e.target.value })} />
-          <input className="form-control mb-2" placeholder="Hacia" value={newTransport.to} onChange={e => setNewTransport({ ...newTransport, to: e.target.value })} />
-          <input className="form-control mb-2" placeholder="Medio de transporte" value={newTransport.transport} onChange={e => setNewTransport({ ...newTransport, transport: e.target.value })} />
-          <input className="form-control mb-2" placeholder="Duración" value={newTransport.duration} onChange={e => setNewTransport({ ...newTransport, duration: e.target.value })} />
-          <button className="btn btn-primary" onClick={() => handleAdd("transports", newTransport, setNewTransport)}>+ Añadir transporte</button>
-        </div>
+        {user && (
+          <div className="mt-3">
+            <input className="form-control mb-2" placeholder="Desde" value={newTransport.from} onChange={e => setNewTransport({ ...newTransport, from: e.target.value })} />
+            <input className="form-control mb-2" placeholder="Hacia" value={newTransport.to} onChange={e => setNewTransport({ ...newTransport, to: e.target.value })} />
+            <input className="form-control mb-2" placeholder="Medio de transporte" value={newTransport.transport} onChange={e => setNewTransport({ ...newTransport, transport: e.target.value })} />
+            <input className="form-control mb-2" placeholder="Duración" value={newTransport.duration} onChange={e => setNewTransport({ ...newTransport, duration: e.target.value })} />
+            <button className="btn btn-primary" onClick={() => handleAdd("transport", newTransport, setNewTransport)}>+ Añadir transporte</button>
+          </div>
+        )}
       </section>
 
       {/* NOTES */}
@@ -195,10 +216,14 @@ export default function TripDetails() {
         {trip.notes?.map((note, i) => (
           <div key={i} className="mb-2">
             <p className="mb-1">{note}</p>
-            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('notes', i, note)}>✏️ Editar</button>
-            <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('notes', i)}>🗑️ Eliminar</button>
+            {user && (
+              <>
+                <button className="btn btn-sm btn-outline-primary me-2" onClick={() => handleEdit('notes', i, note)}>✏️ Editar</button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete('notes', i)}>🗑️ Eliminar</button>
+              </>
+            )}
 
-            {editingField === 'notes' && editIndex === i && (
+            {user && editingField === 'notes' && editIndex === i && (
               <div className="collapse show mt-2">
                 <input className="form-control mb-2" value={editItem} onChange={e => setEditItem(e.target.value)} />
                 <button className="btn btn-success btn-sm me-2" onClick={handleSaveEdit}>💾 Guardar</button>
@@ -207,10 +232,12 @@ export default function TripDetails() {
             )}
           </div>
         ))}
-        <div className="mt-3">
-          <input className="form-control mb-2" placeholder="Nueva nota" value={newNote} onChange={e => setNewNote(e.target.value)} />
-          <button className="btn btn-primary" onClick={() => handleAdd("notes", newNote, setNewNote)}>+ Añadir nota</button>
-        </div>
+        {user && (
+          <div className="mt-3">
+            <input className="form-control mb-2" placeholder="Nueva nota" value={newNote} onChange={e => setNewNote(e.target.value)} />
+            <button className="btn btn-primary" onClick={() => handleAdd("notes", newNote, setNewNote)}>+ Añadir nota</button>
+          </div>
+        )}
       </section>
 
       <BackButton />

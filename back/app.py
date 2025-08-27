@@ -111,6 +111,5 @@ def update_trip(trip_id):
             return jsonify(trip), 200
     return jsonify({"error": "Viaje no encontrado"}), 404
 
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)

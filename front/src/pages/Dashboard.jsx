@@ -3,10 +3,14 @@ import TripCard from "../components/TripCard.jsx";
 import NewTripForm from "../components/NewTripForm.jsx";
 import "../styles/Dashboard.css";
 
+import {useUser} from "../context/UserContext.jsx"
+
 export const Dashboard = () => {
   const [trips, setTrips] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [loadingId, setLoadingId] = useState(null);
+  
+  const { user } = useUser();
 
   useEffect(() => {
     fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips")
@@ -35,12 +39,13 @@ export const Dashboard = () => {
   return (
     <div>
       <h2 className="text-center">Mis Viajes</h2>
-      <div className="text-center my-4">
-        <button className="btn-pastel" onClick={() => setShowForm(true)}>
-          + Añadir viaje
-        </button>
-      </div>
-
+      {user &&(
+        <div className="text-center my-4">
+          <button className="btn-pastel" onClick={() => setShowForm(true)}>
+            + Añadir viaje
+          </button>
+        </div>
+      )}
       {!showForm && trips.length === 0 ? (
         <div className="no-trips-container">
           <p className="no-trips-message">No tienes viajes aún.</p>
@@ -63,7 +68,7 @@ export const Dashboard = () => {
             </div>
           )}
 
-          {showForm && (
+          {showForm && user && (
             <div className="form-panel">
               <NewTripForm
                 onNewTrip={(newTrip) => {
