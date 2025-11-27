@@ -23,7 +23,7 @@ export default function TripDetails() {
   const [editItem, setEditItem] = useState({});
 
   useEffect(() => {
-    fetch(`https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips`)
+    fetch(`https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/api/trips`)
       .then(res => res.json())
       .then(data => {
         const foundTrip = data.find(t => t.id === parseInt(id));
@@ -37,7 +37,7 @@ export default function TripDetails() {
   }, [id]);
 
   const updateTrip = (field, value) => {
-    fetch(`https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips/${id}`, {
+    fetch(`https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/api/trips/${id}`, {
       method: 'PATCH',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ [field]: value })

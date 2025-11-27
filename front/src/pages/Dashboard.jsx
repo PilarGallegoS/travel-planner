@@ -13,7 +13,7 @@ export const Dashboard = () => {
   const { user } = useUser();
 
   useEffect(() => {
-    fetch("https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips")
+    fetch(`https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/api/trips`)
       .then((res) => res.json())
       .then((data) => setTrips(data))
       .catch((error) => console.error("Error al cargar los viajes:", error));
@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
   const handleDelete = (id) => {
     setLoadingId(id);
-    fetch(`https://effective-giggle-g47x4x7579jjhwxgq-5000.app.github.dev/api/trips/${id}`, {
+    fetch(`https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/api/trips/${id}`, {
       method: "DELETE",
     })
       .then(() => {
