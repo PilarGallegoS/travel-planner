@@ -18,7 +18,7 @@ migrate = Migrate(app, db)
 # ---------------------
 # RUTAS DE AUTENTICACIÓN
 # ---------------------
-@app.route("/api/test")
+@app.route("/test")
 def test_route():
     return "¡El servidor está funcionando y esta ruta existe!"
 
