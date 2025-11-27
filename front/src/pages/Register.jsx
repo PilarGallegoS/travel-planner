@@ -15,7 +15,7 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/register", {
+    fetch(`https://solid-pancake-7vp7v7pr5vvqfwxrv-5173.app.github.dev/api/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
